@@ -1,0 +1,42 @@
+#!/usr/bin/evn python
+import tab
+
+account = 'account.txt'
+lock_file = 'lock.txt'
+
+f = file(account)
+name_list = f.readlines()
+f.close()
+print name_list
+
+while True:
+    loginSuccess = False
+    name = raw_input("Name:=>>").strip()
+    if len(name) == 0 : continue
+    lock_list=[]
+    f_lock = file(lock_file)
+    for lock_name in f_lock.readlines():
+        lock_name = lock_name.strip('\n')
+        lock_list.append(lock_name)
+    f_lock.close()
+    if name in lock_list:
+        print "This name has been in the lock.txt,you can't login"
+        continue
+
+    for line in name_list :
+        line = line.split()
+        if name==line[0]:
+            for i in range(3):
+                password = raw_input("password:=>>")
+                if password == line[1]:
+                    print 'welcome to my website'
+                    loginSuccess = True
+                    break
+            else:
+                print "your wrong password is three times,%s will be locked"% name
+                fl = file("lock.txt","a")
+                fl.write('%s\n'%name)
+                fl.close()
+
+        if loginSuccess == True : break  #jump out the top for loop
+    if loginSuccess == True : break  #jump out the while loop
