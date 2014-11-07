@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% load comments %}
+
+{% block page-content %}
+<div class="col-xs-10">
+	<h2>{{bbs_obj.title}}</h2>
+	<hr/>
+	<div id="content">{{ bbs_obj.content }}</div>
+	<hr/>
+	<form action="/sub_comment/" method="get">
+	<textarea rows="5" cols="130" name="text" style="overflow:auto"></textarea>
+	<br/>
+	<input type="checkbox" name="vistor"/>匿名发帖
+	<input type="hidden" name="bbs_id" value={{bbs_obj.id}} />
+	<input type="submit"  class="btn btn-info pull_right" value="Submit"/>
+	</form>
+	<br/>
+	{% get_comment_count for bbs_obj as comment_count %}
+	<p>评论数({{ comment_count }}):</p>
+	{% render_comment_list for bbs_obj %}
+	<script type="text/javascript">
+		var n = $("#content").text();
+		$("#content").html(n);
+	</script>
+</div>
+
+{% endblock %}

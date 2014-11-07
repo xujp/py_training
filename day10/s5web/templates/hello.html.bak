@@ -1,0 +1,44 @@
+<html>
+<head> 
+<script src="/static/jquery-2.1.1.js"></script>
+<script>
+$(document).ready(function(){
+	$("#bt1").click(function(){
+		$("p").hide();
+	});
+	$("#bt2").click(function(){
+		$("p").show();
+	});
+	$("#bt3").click(function(){
+		$("p").css("color","red")
+	});
+
+});
+</script>
+</head>
+
+<body>
+<ol>
+<li> hi , python!!! {{ key }}</li>
+</ol>
+
+<ol>
+{% for name in name_info%}
+	{% if forloop.counter|divisibleby:2 %}
+		<li style="color:red">{{name}}</li>
+	{% else %}
+		<li>{{ name }}</li>
+	{% endif %}
+	
+{% endfor %}
+</ol>
+<p>click me and i will disppear...</p>
+<p>me too </p>
+<h1> i will not </p>
+<p>me too....ha </p>
+<button id="bt1">隐藏</button>
+<button id="bt2">显示</button>
+<button id="bt3">改变颜色</button>
+
+</body>
+</html>

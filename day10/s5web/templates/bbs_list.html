@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% load comments %}
+
+{% block page-content %}
+<div class="col-xs-9">
+{% for bbs in bbs_list %}
+	<div class="media">
+		<a href="/detail/{{bbs.id}}" class="pull-left"><img src="/static/img/4.jpg" class="media-object" alt='' /></a>
+		<div class="media-body">
+		<h3 class="media-heading">
+					{{bbs.title}}| {{bbs.author}} {{bbs.publish_date}}
+		</h3> 
+		<div id="content">{{ bbs.content|truncatechars:80 }}</div>
+		</div>
+	</div>
+<hr style="border : 1px dashed gray;" />
+	<script type="text/javascript">
+		var n = $("#content").text();
+		$("#content").html(n);
+	</script>
+{% endfor %}
+
+</div>
+
+<div class="col-xs-3">
+
+
+<a href="/create_article/">
+<button type="button" class="btn btn-success">发帖</button>
+</a>
+<hr style="border:1px dashed green;">
+<!--
+<span class="label label-success">热门帖子</span>
+<br/>
+<br/>
+-->
+<ul class="breadcrumb" >
+				<li>
+					<span class="label label-success">热门帖子</span>
+				</li>
+</ul>
+
+<ul class="list-group">
+{% for bbs in bbs_list %}
+  <li class="list-group-item">
+    <span class="badge">
+		14
+	</span>
+	{{bbs.title}}
+  </li>
+{% endfor %}
+
+</ul>
+
+</div>
+{% endblock %}

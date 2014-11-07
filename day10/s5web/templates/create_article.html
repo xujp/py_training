@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% block page-content %}
+	<script src="/static/ckeditor/ckeditor.js"></script>
+	<link rel="stylesheet" href="sample.css">
+	<form action="/submit_article/" method="post">
+		<p>
+			<div class="input-group">
+			  <span class="input-group-addon">@</span>
+			  <input type="text" name="bbs_title" class="form-control" placeholder="文章标题">
+			</div>
+			<textarea class="ckeditor" cols="80" id="editor1" name="bbs_content" rows="10">
+			</textarea>
+		</p>
+		<p>
+			<select class="btn-success" name="bbs_category">
+			  <option value="linux">linux版块</option>
+			  <option value="python">python版块</option>
+			</select>
+			<input type="submit"  class="btn btn-info" value="Submit">
+		</p>
+	</form>
+{% endblock %}
