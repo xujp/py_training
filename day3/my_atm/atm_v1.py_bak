@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+import tab
+
+def login():
+    f = file("account.txt")
+    account_list =  f.readlines()
+    f.close()
+    print account_list
+   
+    with file("lock.txt") as f2 :
+        lock_file = f2.readlines()
+
+    while True:
+        loginSuccess = False
+        lock_list = []
+        username = raw_input("username:=>").strip()
+        if len(username) == 0 : continue
+        for lock_name in lock_file:
+            lock_name = lock_name.strip('\n')
+            lock_list.append(lock_name)
+        #print lock_list
+        if username in lock_list:
+            print "%s has been locked"%username
+            continue
+
+        for line in account_list:
+            line = line.split()  # transter string into list
+            print line,
+            if username == line[0]:
+                for i in range(3):
+                    password = raw_input("password=>>")
+                    if password == line[1]:
+                        print "%s login success!"% username
+                        loginSuccess = True
+                        break
+                    else :
+                        i = 2-i
+                        print "your password is error! you %s times chance" %i
+                else:
+                    print " your account will be  locked %s  "%username
+                    f1 = file("lock.txt","a")
+                    f1.write("%s\n"%username)
+                    f1.close()
+                    
+            if loginSuccess == True : break  # jump off for loop
+        if loginSuccess == True : break  # jump off while loop
+    
+if __name__ == "__main__":
+    login()
